@@ -1,0 +1,84 @@
+Goal:
+Improve the below class however you see fit. You have free rein here.
+
+
+<?php
+
+class Guest {
+
+	protected $servername 	= "localhost";
+	protected $username 	= "username";
+	protected $password 	= "password";
+	protected $dbname 		= "myDB";
+
+	function __construct( $data ) {
+
+		$this->servername 	= $data['servername'];
+		$this->username 	= $data['username'];
+		$this->password 	= $data['password'];
+		$this->dbname 		= $data['dbname'];
+
+	}
+
+	public function addGuest( $data ) {
+
+		// Create MySQL Connection
+		$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+   
+		if(! $conn ) {
+			die('Could not connect: ' . mysql_error());
+		}
+
+		$sql = 'INSERT INTO guest '.'(guest_name,guest_address, guest_phone, guest_email, date_created) '.'VALUES ( '.$guest['name'].', '.$guest['address'].', '.$guest['phone'].', NOW() )';
+
+		mysql_select_db('guest_records');
+   		$returnVal = mysql_query( $sql, $conn );
+
+   		// If error
+		if(! $retval ) {
+			die('Could not enter data: ' . mysql_error());
+		}
+
+		return "true";
+		
+		// Close connection
+		mysql_close($conn);
+	}
+
+	public function addGuests() {
+
+		if(isset($_REQUEST['guestArray']))
+		foreach($_REQUEST['guestArray'] as $guest) {
+			// Create MySQL Connection
+			$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+   
+			if(! $conn ) {
+				die('Could not connect: ' . mysql_error());
+			}
+
+			$sql = 'INSERT INTO guest '.'(guest_name,guest_address, guest_phone, guest_email, date_created) '.'VALUES ( '.$guest['name'].', '.$guest['address'].', '.$guest['phone'].', NOW() )';
+
+			mysql_select_db('guest_records');
+   			$returnVal = mysql_query( $sql, $conn );
+
+   			// If error
+			if(! $retval ) {
+		      die('Could not enter data: ' . mysql_error());
+		   }
+		}
+
+		return true;
+		
+		// Close connection
+		mysql_close($conn);
+
+	}
+	
+}
+?>
+
+
+
+
+
+
